@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마크다운 에디터</title>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/marked/3.0.8/marked.min.js"
+  crossorigin="anonymous"
+  onload="init();"
+  async
+></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+    }
+    .markdown-editor, .preview {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <textarea class="markdown-editor" placeholder="여기에 마크다운을 작성하세요"></textarea>
+    <div class="preview"></div>
+  </div>
+  <script>
+    function init() {
+  if (typeof marked !== 'function') {
+    console.error('marked 라이브러리 로드에 문제가 발생했습니다.');
+    return;
+  }
+
+  marked.setOptions({
+    breaks: true,
+  });
+
+  const markdownEditor = document.querySelector('.markdown-editor');
+  const preview = document.querySelector('.preview');
+
+  markdownEditor.addEventListener('input', (event) => {
+    const markdown = event.target.value;
+    preview.innerHTML = marked(markdown);
+  });
+}
+
+  </script>
+</body>
+</html>
